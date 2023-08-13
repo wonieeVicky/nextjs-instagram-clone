@@ -12,7 +12,7 @@
 
 ## MVP
 
-- [ ]  Basic project configuration
+- [x]  Basic project configuration
 - [ ]  Topbar Layout
 - [ ]  Sanity(headless CMS) configuration
 - [ ]  Authentication(next-auth) configuration
