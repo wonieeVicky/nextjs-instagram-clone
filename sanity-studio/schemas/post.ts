@@ -47,4 +47,20 @@
       ],
     },
   ],
+  preview: {
+    select: {
+      title: 'comments.0.comment',
+      authorName: 'author.name',
+      autherUsername: 'author.username',
+      media: 'photo',
+    },
+    prepare(selection: any) {
+      const {title, authorName, autherUsername, media} = selection
+      return {
+        title,
+        subtitle: `by ${authorName} (@${autherUsername})`,
+        media,
+      }
+    },
+  },
 }
