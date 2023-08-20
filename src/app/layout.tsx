@@ -1,4 +1,4 @@
-import Header from '@/components/layout/Header';
+import Navbar from '@/components/layout/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
@@ -18,10 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sans.className}>
-        <Header />
-        <main className="w-full max-w-screen-2xl m-auto grow mb-20 border h-full text-center">
-          {children}
-        </main>
+        <header>
+          <Navbar />
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   );
