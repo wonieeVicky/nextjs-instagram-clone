@@ -6,6 +6,8 @@ type Props = {
   children: React.ReactNode;
 };
 
+// AuthContext라는 우산을 applitcation children에게 제공
+// AuthContext는 SessionProvider를 통해 session을 제공
 export default function AuthContext({ children }: Props) {
   return <SessionProvider>{children}</SessionProvider>;
 }
