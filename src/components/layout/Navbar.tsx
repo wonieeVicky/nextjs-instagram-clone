@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import HomeIcon from '../ui/icons/HomeIcon';
 import HomeFillIcon from '../ui/icons/HomeFillIcon';
 import SearchIcon from '../ui/icons/SearchIcon';
@@ -9,7 +9,7 @@ import SearchFillIcon from '../ui/icons/SearchFillIcon';
 import NewIcon from '../ui/icons/NewIcon';
 import NewFillIcon from '../ui/icons/NewFillIcon';
 import ColorButton from '../ui/ColorButton';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 // navigation Type
 type menuType = {
@@ -37,7 +37,9 @@ const menu: menuType[] = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
   const pathname = usePathname();
+
   const { data: session } = useSession();
 
   return (
@@ -54,10 +56,18 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+
           {session ? (
             <ColorButton text="Sign out" onClick={signOut} />
           ) : (
-            <ColorButton text="Sign in" onClick={signIn} />
+            <ColorButton
+              text="Sign in"
+              onClick={() =>
+                router.push(
+                  `/auth/signin?callbackUrl=http://localhost:3000${pathname}`
+                )
+              }
+            />
           )}
         </ul>
       </nav>
