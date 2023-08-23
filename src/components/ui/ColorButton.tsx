@@ -1,13 +1,16 @@
 ﻿type Props = {
   text: string;
   onClick: () => void;
+  size?: 'sm' | 'md' | 'lg';
 };
 
-export default function ColorButton({ text, onClick }: Props) {
+export default function ColorButton({ text, onClick, size = 'md' }: Props) {
   return (
-    <div className="rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-[0.15rem]">
+    <div className="rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-[0.15rem] inline-block">
       <button
-        className="bg-white rounded-sm text-bases px-[0.3rem] hover:opacity-90 transition-opacity"
+        className={`bg-white rounded-sm px-[0.3rem] hover:opacity-90 transition-opacity ${
+          size === 'lg' ? 'text-3xl p-[1rem] px-[1rem]' : 'text-bases'
+        }`}
         onClick={onClick}
       >
         {text}
