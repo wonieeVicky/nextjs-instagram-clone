@@ -10,6 +10,7 @@ import NewIcon from '../ui/icons/NewIcon';
 import NewFillIcon from '../ui/icons/NewFillIcon';
 import ColorButton from '../ui/ColorButton';
 import { signOut, useSession } from 'next-auth/react';
+import ColorImage from '../ui/ColorImage';
 
 // navigation Type
 type menuType = {
@@ -56,6 +57,18 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+
+          {session && (
+            <Link href={`/user/${session.user?.email?.split('@')[0]}`}>
+              <ColorImage>
+                <img
+                  className="rounded-full"
+                  src={session.user!.image!}
+                  alt={`${session.user!.name} image`}
+                />
+              </ColorImage>
+            </Link>
+          )}
 
           {session ? (
             <ColorButton text="Sign out" onClick={signOut} />
