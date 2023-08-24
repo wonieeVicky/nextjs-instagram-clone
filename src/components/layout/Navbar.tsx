@@ -9,7 +9,7 @@ import SearchFillIcon from '../ui/icons/SearchFillIcon';
 import NewIcon from '../ui/icons/NewIcon';
 import NewFillIcon from '../ui/icons/NewFillIcon';
 import ColorButton from '../ui/ColorButton';
-import { signOut, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import ColorImage from '../ui/ColorImage';
 
 // navigation Type
@@ -73,14 +73,7 @@ export default function Navbar() {
           {session ? (
             <ColorButton text="Sign out" onClick={signOut} />
           ) : (
-            <ColorButton
-              text="Sign in"
-              onClick={() =>
-                router.push(
-                  `/auth/signin?callbackUrl=http://localhost:3000${pathname}`
-                )
-              }
-            />
+            <ColorButton text="Sign in" onClick={signIn} />
           )}
         </ul>
       </nav>
