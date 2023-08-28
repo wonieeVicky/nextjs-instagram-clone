@@ -1,4 +1,4 @@
-﻿import { createUser } from '@/service/sanity';
+﻿import { addUser } from '@/service/user';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -20,15 +20,18 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ user: { name, email, image } }) {
-      // sanity create user
-      await createUser({
-        email: email || '',
-        image: image || '',
+    async signIn({ user: { name, email, image, id } }) {
+      if (!email) {
+        return false;
+      }
+
+      // sanity add user
+      addUser({
         name: name || '',
+        image,
+        email,
         username: email?.split('@')[0] || '',
-        _type: 'user',
-        _id: 'my-user'
+        id
       });
 
       return true;
