@@ -1,4 +1,5 @@
-﻿import NextAuth, { NextAuthOptions } from 'next-auth';
+﻿import { createUser } from '@/service/sanity';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
@@ -10,7 +11,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session }) {
-      // console.log(session);
       const user = session?.user;
       if (user) {
         session.user = {
@@ -19,6 +19,19 @@ export const authOptions: NextAuthOptions = {
         };
       }
       return session;
+    },
+    async signIn({ user: { name, email, image } }) {
+      // sanity create user
+      await createUser({
+        email: email || '',
+        image: image || '',
+        name: name || '',
+        username: email?.split('@')[0] || '',
+        _type: 'user',
+        _id: 'my-user'
+      });
+
+      return true;
     }
   },
   pages: {
