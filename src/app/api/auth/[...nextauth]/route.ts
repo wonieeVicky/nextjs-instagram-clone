@@ -11,6 +11,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session }) {
+      // 프론트엔드에서 직접 user를 추가하지 않고, session 동작을 통해 server side에서 업데이트
       const user = session?.user;
       if (user) {
         session.user = {
