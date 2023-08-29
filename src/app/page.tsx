@@ -1,7 +1,15 @@
 // import { getPosts } from '@/service/sanity';
-import { createClient } from 'next-sanity';
+import UserWidget from '@/components/layout/UserWidget';
 
 export default async function Home() {
   // const posts = await getPosts();
-  return <h1 className="text-gray-900"></h1>;
+  return (
+    <div className="w-full flex p-5">
+      <div className="flex-1">
+        <div>FollowingBar</div>
+        <div>PostList</div>
+      </div>
+      <UserWidget />
+    </div>
+  );
 }
