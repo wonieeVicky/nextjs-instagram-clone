@@ -23,3 +23,21 @@ export async function addUser({ id, username, name, email, image }: OAuthUser) {
 
   return result;
 }
+
+type getFollowingsProps = {
+  username: string;
+};
+
+export async function getFollowings({ username }: getFollowingsProps) {
+  const result = await client.fetch(
+    `*[_type == "user" && _username == ${username}][0].following[]->{
+      _id,
+      username, 
+      name, 
+      email,
+      image
+    }`
+  );
+
+  return result;
+}
