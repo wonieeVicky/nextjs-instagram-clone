@@ -12,21 +12,21 @@
 
 ## MVP
 
-- [x]  Basic project configuration
-- [ ]  Topbar Layout
-- [ ]  Sanity(headless CMS) configuration
-- [ ]  Authentication(next-auth) configuration
-- [ ]  Login/Logout(sign in with google)
-- [ ]  Main - followings
-- [ ]  Main - Infinite Scroll..
-- [ ]  Main - feeds(liked, saved, following)
-- [ ]  Main - profile
-- [ ]  Detail - feed(like, save)
-- [ ]  Detail - comment
-- [ ]  My - follower, following, posts
-- [ ]  My - feeds(posts)
-- [ ]  My - feeds(saved)
-- [ ]  My - feeds(liked)
+- [x] Basic project configuration
+- [x] Topbar Layout
+- [x] Sanity(headless CMS) configuration
+- [x] Authentication(next-auth) configuration
+- [x] Login/Logout(sign in with google)
+- [ ] Main - followings
+- [ ] Main - Infinite Scroll..
+- [ ] Main - feeds(liked, saved, following)
+- [ ] Main - profile
+- [ ] Detail - feed(like, save)
+- [ ] Detail - comment
+- [ ] My - follower, following, posts
+- [ ] My - feeds(posts)
+- [ ] My - feeds(saved)
+- [ ] My - feeds(liked)
 
 ## Add a pinch of ideas 🤔
 
