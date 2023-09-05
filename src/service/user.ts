@@ -24,18 +24,18 @@ export async function addUser({ id, username, name, email, image }: OAuthUser) {
   return result;
 }
 
-type getFollowingsProps = {
-  username: string;
-};
-
-export async function getFollowings({ username }: getFollowingsProps) {
+export async function getUserByUsername(username: string) {
   const result = await client.fetch(
-    `*[_type == "user" && _username == ${username}][0].following[]->{
-      _id,
-      username, 
-      name, 
-      email,
-      image
+    `*[_type == "user" && username == "${username}"][0]{
+      ...,
+      "id": _id,
+      following[]->{
+        username, image
+      },
+      followers[]->{
+        username, image
+      },
+      "bookmarks": bookmarks[]->_id
     }`
   );
 
