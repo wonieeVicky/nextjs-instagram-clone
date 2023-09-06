@@ -1,11 +1,10 @@
 ﻿'use client';
-import { DetailUser, User } from '@/model/user';
+import { DetailUser } from '@/model/user';
+import Link from 'next/link';
+import { PropagateLoader } from 'react-spinners';
 
 import useSWR from 'swr';
-
-type Props = {
-  user: User;
-};
+import Avatar from '../ui/Avatar';
 
 // 사용자의 유저 정보로 팔로잉 리스트를 받아와야 함 => SSR로 구현 시 과부하. CSR로 구현
 export default function FollowingBar() {
@@ -14,24 +13,28 @@ export default function FollowingBar() {
   // 3. 백엔드에서 사용자의 상세 정보(followings)를 Sanity에서 가지고 온다.(/api/me/route.ts)
   // 4. 여기에서 클라이언트 컴포넌트에서 followings의 정보를 UI에 보여준다(image, username)
 
-  const { data, isLoading } = useSWR<DetailUser>('/api/me');
-
-  // const followings = await getFollowings({ username: user.username });
-
-  // if (!followings) {
-  //   return;
-  // }
+  const { data, isLoading: loading } = useSWR<DetailUser>('/api/me');
+  const users = data?.following;
 
   return (
-    <div className="border p-8 rounded-md">
-      {/* <MultiCarousel>
-        {followings.map(({ name, username, email, image }: User) => (
-          <div key={username} className="flex flex-col items-center">
-            <Avatar image={image} highlight />
-            <p>{username}</p>
-          </div>
-        ))}
-      </MultiCarousel> */}
-    </div>
+    <section>
+      {loading ? (
+        <PropagateLoader size={8} color="green" />
+      ) : (
+        (!users || users.length === 0) && <p>{`You don't have following`}</p>
+      )}
+      {users && users.length > 0 && (
+        <ul>
+          {users.map(({ image, username }) => (
+            <li key={username}>
+              <Link href={`/user/${username}`}>
+                <Avatar image={image} highlight />
+                <p>{username}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
