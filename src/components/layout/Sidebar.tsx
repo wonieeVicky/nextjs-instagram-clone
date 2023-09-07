@@ -30,14 +30,9 @@ export default function Sidebar({ user: { name, username, image } }: Props) {
         </div>
       </div>
       <p className="text-sm text-neutral-500 mt-8">
-        {NAV_ITEMS.map((item, idx) => {
-          return (
-            <span key={item.title}>
-              {item.title}
-              {idx !== NAV_ITEMS.length - 1 && '∙'}
-            </span>
-          );
-        })}
+        {NAV_ITEMS.map((item) => {
+          return item.title;
+        }).join(' · ')}
       </p>
       <p className="text-sm font-bold mt-8 text-neutral-500">
         @Copyright VICKYGRAM from Metaaa
