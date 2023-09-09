@@ -2,17 +2,12 @@
 import { DetailUser } from '@/model/user';
 import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
-
 import useSWR from 'swr';
 import Avatar from '../ui/Avatar';
+import ScrollableBar from '../ui/ScrollableBar';
 
 // 사용자의 유저 정보로 팔로잉 리스트를 받아와야 함 => SSR로 구현 시 과부하. CSR로 구현
 export default function FollowingBar() {
-  // 1. 클라이언트 컴포넌트에서 백엔드에게 api/me 사용자의 정보를 얻어온다.
-  // 2. 백엔드에서는 현재 로그인된 사용자의 세션 정보를 이용해서 Sanity에 접근한다. (service/user.ts)
-  // 3. 백엔드에서 사용자의 상세 정보(followings)를 Sanity에서 가지고 온다.(/api/me/route.ts)
-  // 4. 여기에서 클라이언트 컴포넌트에서 followings의 정보를 UI에 보여준다(image, username)
-
   const { data, isLoading: loading } = useSWR<DetailUser>('/api/me');
   const users = data?.following;
 
@@ -24,21 +19,20 @@ export default function FollowingBar() {
         (!users || users.length === 0) && <p>{`You don't have following`}</p>
       )}
       {users && users.length > 0 && (
-        <ul className="w-full flex gap-2">
+        <ScrollableBar>
           {users.map(({ image, username }, i) => (
-            <li key={i}>
-              <Link
-                className="flex flex-col items-center w-20"
-                href={`/user/${username}`}
-              >
-                <Avatar image={image} highlight />
-                <p className="w-full text-sm text-center text-ellipsis overflow-hidden">
-                  {username}
-                </p>
-              </Link>
-            </li>
+            <Link
+              className="flex flex-col items-center w-20"
+              href={`/user/${username}`}
+              key={i}
+            >
+              <Avatar image={image} highlight />
+              <p className="w-full text-sm text-center text-ellipsis overflow-hidden">
+                {username}
+              </p>
+            </Link>
           ))}
-        </ul>
+        </ScrollableBar>
       )}
     </section>
   );
