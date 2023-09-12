@@ -17,7 +17,7 @@
 - [x] Sanity(headless CMS) configuration
 - [x] Authentication(next-auth) configuration
 - [x] Login/Logout(sign in with google)
-- [ ] Main - followings
+- [x] Main - followings
 - [ ] Main - Infinite Scroll..
 - [ ] Main - feeds(liked, saved, following)
 - [ ] Main - profile
