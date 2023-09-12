@@ -53,7 +53,8 @@ export default function PostCard({
           <BookmarkIcon />
         </div>
         <div className="p-1 px-3 text-sm font-semibold">
-          {likes?.length} like
+          {likes?.length || 0} like
+          {likes?.length > 1 ? 's' : ''}
         </div>
         <div className="p-1 px-3 text-sm">
           <span className="font-bold">{username}</span>
