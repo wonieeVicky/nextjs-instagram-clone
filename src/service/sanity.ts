@@ -1,10 +1,12 @@
 ﻿import { createClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 export const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: process.env.SANITY_DATASET,
-  apiVersion: '2023-08-27',
-  useCdn: true,
+  projectId: 'oxqbemzi',
+  dataset: 'production',
+  apiVersion: '2023-09-03',
+  useCdn: false,
   token: process.env.SANITY_TOKEN
 });
 
@@ -22,4 +24,10 @@ export async function createUser(user: User) {
     .createIfNotExists(user)
     .then((res) => console.log(res));
   return result;
+}
+
+const builder = imageUrlBuilder(client);
+
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source).width(800).url();
 }
