@@ -1,7 +1,5 @@
 ﻿import { SimplePost } from '@/model/post';
 import Avatar from '../ui/Avatar';
-import { client } from '@/service/sanity';
-import imageUrlBuilder from '@sanity/image-url';
 import HeartIcon from '../ui/icons/HeartIcon';
 import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
@@ -9,28 +7,13 @@ import { format } from 'timeago.js';
 import SmileIcon from '../ui/icons/SmileIcon';
 import { User } from '@/model/user';
 
-const builder = imageUrlBuilder(client);
-
-export function urlFor(source: string) {
-  return builder.image(source);
-}
-
 type Props = {
   post: SimplePost;
   user: User;
 };
 
 export default function PostCard({
-  post: {
-    userImage,
-    username,
-    image: {
-      asset: { _ref }
-    },
-    likes,
-    text,
-    createdAt
-  },
+  post: { userImage, username, image, likes, text, createdAt },
   user
 }: Props) {
   return (
@@ -41,7 +24,7 @@ export default function PostCard({
         <span className="font-bold">{username}</span>
       </div>
       <div>
-        <img src={urlFor(_ref).width(1000).height(1000).url()} alt="" />
+        <img src={image} alt="" />
       </div>
       <div className="py-2">
         <div className="p-1 px-3 flex justify-between">
