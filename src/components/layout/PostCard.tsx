@@ -3,19 +3,19 @@ import Avatar from '../ui/Avatar';
 import HeartIcon from '../ui/icons/HeartIcon';
 import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
-import { format } from 'timeago.js';
 import SmileIcon from '../ui/icons/SmileIcon';
 import { User } from '@/model/user';
+import Image from 'next/image';
+import { parseDate } from '@/util/date';
 
 type Props = {
   post: SimplePost;
   user: User;
 };
 
-export default function PostCard({
-  post: { userImage, username, image, likes, text, createdAt },
-  user
-}: Props) {
+export default function PostCard({ post, user }: Props) {
+  const { userImage, username, image, likes, text, createdAt } = post;
+
   return (
     <div className="w-full flex shadow-sm shadow-neutral-300 mb-4 rounded-lg flex-col">
       <div className="p-2 flex items-center">
@@ -46,7 +46,7 @@ export default function PostCard({
         </div>
         <div className="p-1 px-3">
           <span className="text-xs font-light text-gray-500">
-            {format(createdAt)?.toUpperCase()}
+            {parseDate(createdAt)?.toUpperCase()}
           </span>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default function PostCard({
           <input
             type="text"
             placeholder="Add a comment..."
-            className="h-9 w-96 text-gray-500 border-0 text-sm placeholder-gray-400 focus:outline-none focus:ring-white"
+            className="h-9 w-96 bg-neutral-50 text-gray-500 border-0 text-sm placeholder-gray-400 focus:outline-none focus:ring-white"
           />
         </div>
         <button className="text-cyan-600 font-semibold text-sm">Post</button>
