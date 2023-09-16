@@ -1,12 +1,13 @@
-﻿type Props = {
+﻿type AvatarSize = 'small' | 'large' | 'medium';
+type Props = {
   image?: string | null;
-  size?: 'small' | 'normal' | 'medium';
+  size?: AvatarSize;
   highlight?: boolean;
 };
 
 export default function Avatar({
   image,
-  size = 'normal',
+  size = 'large',
   highlight = false
 }: Props) {
   return (
@@ -23,25 +24,25 @@ export default function Avatar({
   );
 }
 
-function getContainerStyle(size: string, highlight: boolean): string {
+function getContainerStyle(size: AvatarSize, highlight: boolean): string {
   const baseStyle = 'rounded-full flex justify-center items-center';
   const highlightStyle = highlight
     ? 'bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300'
     : '';
-  const mapSizeToStyle: Record<string, string> = {
+  const mapSizeToStyle: Record<AvatarSize, string> = {
     small: 'w-9 h-9',
-    normal: 'w-[68px] h-[68px]',
-    medium: 'w-[45px] h-[45px]'
+    medium: 'w-11 h-11',
+    large: 'w-[68px] h-[68px]'
   };
   const sizeStyle = mapSizeToStyle[size];
   return `${baseStyle} ${highlightStyle} ${sizeStyle}`;
 }
 
-function getImageSizeStyle(size: 'small' | 'normal' | 'medium'): string {
-  const mapSizeToStyle: Record<'small' | 'normal' | 'medium', string> = {
+function getImageSizeStyle(size: AvatarSize): string {
+  const mapSizeToStyle: Record<AvatarSize, string> = {
     small: 'w-[34px] h-[34px] p-[0.1rem]',
-    normal: 'w-16 h-16 p-[0.2rem]',
-    medium: 'p-[0.1rem] w-[41px] h-[41px]'
+    medium: 'w-[42px] h-[42px] p-[0.1rem]',
+    large: 'w-16 h-16 p-[0.2rem]'
   };
   return mapSizeToStyle[size];
 }
