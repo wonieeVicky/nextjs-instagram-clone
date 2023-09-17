@@ -1,4 +1,3 @@
-// import { getPosts } from '@/service/sanity';
 import FollowingBar from '@/components/layout/FollowingBar';
 import PostList from '@/components/layout/PostList';
 import Sidebar from '@/components/layout/Sidebar';

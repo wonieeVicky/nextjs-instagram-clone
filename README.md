@@ -18,8 +18,8 @@
 - [x] Authentication(next-auth) configuration
 - [x] Login/Logout(sign in with google)
 - [x] Main - followings
+- [x] Main - feeds(liked, saved, following)
 - [ ] Main - Infinite Scroll..
-- [ ] Main - feeds(liked, saved, following)
 - [ ] Main - profile
 - [ ] Detail - feed(like, save)
 - [ ] Detail - comment
