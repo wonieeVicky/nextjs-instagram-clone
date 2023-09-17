@@ -1,17 +1,16 @@
 ﻿import { SimplePost } from '@/model/post';
 import Avatar from '../ui/Avatar';
 
-import { User } from '@/model/user';
 import Image from 'next/image';
 import CommentForm from '../ui/CommentForm';
 import ActionBar from '../ui/ActionBar';
 
 type Props = {
   post: SimplePost;
-  user: User;
+  priority?: boolean;
 };
 
-export default function PostCard({ post, user }: Props) {
+export default function PostCard({ post, priority = false }: Props) {
   const { userImage, username, image, likes, text, createdAt } = post;
 
   return (
@@ -26,6 +25,7 @@ export default function PostCard({ post, user }: Props) {
         alt={`photo by ${username}`}
         width={500}
         height={500}
+        priority={priority}
       />
       <ActionBar
         likes={likes}
