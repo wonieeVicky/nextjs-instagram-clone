@@ -1,7 +1,9 @@
 ﻿import { SimplePost } from '@/model/post';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import CloseIcon from './icons/CloseIcon';
 import Image from 'next/image';
+import Avatar from './Avatar';
+import ActionBar from './ActionBar';
+import CommentForm from './CommentForm';
 
 type Props = {
   onClose: () => void;
@@ -23,7 +25,32 @@ export default function ModalContent({ onClose, post }: Props) {
               width={500}
               height={500}
             />
-            <div className="bg-white min-w-[400px]"></div>
+            <div className="bg-white min-w-[400px] relative">
+              <section className="flex items-center p-2">
+                <Avatar image={userImage} highlight size="medium" />
+                <span className="text-gray-900 font-semibold ml-2">
+                  {username}
+                </span>
+              </section>
+              <hr />
+              <section className="p-3">
+                <div className="flex items-center p-1 text-sm">
+                  <Avatar image={userImage} highlight size="small" />
+                  <span className="font-bold mx-2">{username}</span>
+                  {text}
+                </div>
+              </section>
+              <section className="absolute w-full bottom-0">
+                <ActionBar
+                  likes={likes}
+                  username={username}
+                  text={text}
+                  createdAt={createdAt}
+                  mode={'detail'}
+                />
+                <CommentForm />
+              </section>
+            </div>
           </div>
         </div>
       </div>
