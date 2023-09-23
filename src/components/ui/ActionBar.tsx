@@ -6,18 +6,11 @@ import { parseDate } from '@/util/date';
 type Props = {
   likes: string[];
   username: string;
-  text: string;
+  text?: string;
   createdAt: string;
-  mode?: 'default' | 'detail';
 };
 
-export default function ActionBar({
-  likes,
-  username,
-  text,
-  createdAt,
-  mode = 'default'
-}: Props) {
+export default function ActionBar({ likes, username, text, createdAt }: Props) {
   return (
     <>
       <div className="flex justify-between my-2 px-4">
@@ -28,7 +21,7 @@ export default function ActionBar({
         <p className="text-sm font-bold mb-2">{`${likes?.length ?? 0} ${
           likes?.length > 1 ? 'likes' : 'like'
         }`}</p>
-        {mode === 'default' && (
+        {text && (
           <p>
             <span className="font-bold mr-1">{username}</span>
             {text}
