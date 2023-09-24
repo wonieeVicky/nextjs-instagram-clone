@@ -41,3 +41,22 @@ export async function getUserByUsername(username: string) {
 
   return result;
 }
+
+// get all user list
+export async function getAllUsers() {
+  const result = await client.fetch(
+    `*[_type == "user"]{
+      ...,
+      "id": _id,
+      following[]->{
+        username, image
+      },
+      followers[]->{
+        username, image
+      },
+      "bookmarks": bookmarks[]->_id
+    }`
+  );
+
+  return result;
+}
