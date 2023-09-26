@@ -14,7 +14,7 @@ export default function SearchPage() {
         <input
           type="text"
           placeholder="Search for a username or name"
-          className="w-full h-12 placeholder:text-neutral-400 placeholder:text-lg border-neutral-400 focus:border-none"
+          className="w-full h-12 placeholder:text-neutral-400 placeholder:text-lg border-neutral-400 focus:border-none focus:ring-neutral-500"
         />
       </div>
       {loading && (

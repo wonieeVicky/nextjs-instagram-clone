@@ -10,8 +10,11 @@ export default function UserList({ list }: Props) {
     <section>
       {list.map(({ name, username, image, following, followers }) => {
         return (
-          <Link href={`/user/${username}`} key={username}>
-            <div className="flex p-3 max-w-2xl m-auto mb-2 items-center border border-neutral-200">
+          <div
+            className="max-w-2xl m-auto mb-2 border border-neutral-300"
+            key={username}
+          >
+            <Link href={`/user/${username}`} className="flex items-center p-3 ">
               <div className="mr-3">
                 <Avatar image={image} size="large" />
               </div>
@@ -23,8 +26,8 @@ export default function UserList({ list }: Props) {
                   following
                 </p>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         );
       })}
     </section>
