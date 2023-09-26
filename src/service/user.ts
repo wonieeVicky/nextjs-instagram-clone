@@ -43,9 +43,25 @@ export async function getUserByUsername(username: string) {
 }
 
 // get all user list
-export async function getAllUsers() {
-  const result = await client.fetch(
-    `*[_type == "user"]{
+export async function getUsers(type: 'all' | 'search', data?: string) {
+  if (type === 'all') {
+    return await client.fetch(
+      `*[_type == "user"]{
+        ...,
+        "id": _id,
+        following[]->{
+          username, image
+        },
+        followers[]->{
+          username, image
+        },
+        "bookmarks": bookmarks[]->_id
+      }`
+    );
+  }
+  // return search username or name & data is search query
+  return await client.fetch(
+    `*[_type == "user" && (username match "${data}*" || name match "${data}*") ]{
       ...,
       "id": _id,
       following[]->{
@@ -57,6 +73,4 @@ export async function getAllUsers() {
       "bookmarks": bookmarks[]->_id
     }`
   );
-
-  return result;
 }
