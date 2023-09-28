@@ -9,7 +9,7 @@ import useDebounce from '@/util/hooks';
 
 export default function UserSearch() {
   const [keyword, setKeyword] = useState('');
-  const debouncedKeyword = useDebounce(keyword, 1000);
+  const debouncedKeyword = useDebounce(keyword.replace(/\*/g, ''));
   const {
     data: users,
     isLoading,
