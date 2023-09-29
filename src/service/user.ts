@@ -36,7 +36,8 @@ export async function getUserByUsername(username: string) {
       followers[]->{
         username, image
       },
-      "bookmarks": bookmarks[]->_id
+      "bookmarks": bookmarks[]->_id,
+      "posts": count(*[_type == "post" && author._ref == ^._id])
     }`
   );
 
