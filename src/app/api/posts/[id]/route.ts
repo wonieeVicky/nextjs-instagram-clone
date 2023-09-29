@@ -1,6 +1,6 @@
 ﻿import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { getFollowingPostsOf, getPost } from '@/service/posts';
+import { getPost } from '@/service/posts';
 import { authOptions } from '../../auth/[...nextauth]/route';
 
 type Context = {
