@@ -1,4 +1,4 @@
-﻿type AvatarSize = 'small' | 'large' | 'medium';
+﻿type AvatarSize = 'xlarge' | 'large' | 'medium' | 'small';
 type Props = {
   image?: string | null;
   size?: AvatarSize;
@@ -32,7 +32,8 @@ function getContainerStyle(size: AvatarSize, highlight: boolean): string {
   const mapSizeToStyle: Record<AvatarSize, string> = {
     small: 'w-9 h-9',
     medium: 'w-11 h-11',
-    large: 'w-[68px] h-[68px]'
+    large: 'w-[68px] h-[68px]',
+    xlarge: 'w-[100px] h-[100px]'
   };
   const sizeStyle = mapSizeToStyle[size];
   return `${baseStyle} ${highlightStyle} ${sizeStyle}`;
@@ -42,7 +43,8 @@ function getImageSizeStyle(size: AvatarSize): string {
   const mapSizeToStyle: Record<AvatarSize, string> = {
     small: 'w-[34px] h-[34px] p-[0.1rem]',
     medium: 'w-[42px] h-[42px] p-[0.1rem]',
-    large: 'w-16 h-16 p-[0.2rem]'
+    large: 'w-16 h-16 p-[0.2rem]',
+    xlarge: 'w-24 h-24 p-[0.2rem]'
   };
   return mapSizeToStyle[size];
 }
