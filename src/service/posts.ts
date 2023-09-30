@@ -45,3 +45,22 @@ export async function getPost(id: string) {
 
   return result;
 }
+
+// get posts, saved posts, liked posts
+export async function getPostsOf(username: string) {
+  const parallelCall = [];
+  const posts = await client.fetch(
+    `*[_type == "post" && author->username == "${username}"] | order(_createdAt desc){${simplePostProjection}}`
+  );
+  const savedPosts = await client.fetch(
+    `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].bookmarks[]] | order(_createdAt desc){${simplePostProjection}}`
+  );
+  const likedPosts = await client.fetch(
+    `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].likes[]] | order(_createdAt desc){${simplePostProjection}}`
+  );
+
+  parallelCall.push(posts, savedPosts, likedPosts);
+  await Promise.all(parallelCall);
+
+  return { posts, savedPosts, likedPosts };
+}

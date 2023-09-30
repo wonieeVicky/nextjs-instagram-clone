@@ -37,7 +37,6 @@ export async function getUserByUsername(username: string) {
         username, image
       },
       "bookmarks": bookmarks[]->_id,
-      "posts": count(*[_type == "post" && author._ref == ^._id])
     }`
   );
 
