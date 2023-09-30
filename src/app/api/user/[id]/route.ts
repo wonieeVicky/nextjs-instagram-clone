@@ -1,4 +1,5 @@
-﻿import { getUserByUsername } from '@/service/user';
+﻿import { getPostsOf } from '@/service/posts';
+import { getUserByUsername } from '@/service/user';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Context = {
@@ -6,8 +7,10 @@ type Context = {
 };
 
 export async function GET(_: NextRequest, context: Context) {
-  // 로그인 여부를 보지 않는다.
+  const userInfo = getUserByUsername(context.params.id);
+  const posts = getPostsOf(context.params.id);
 
-  return getUserByUsername(context.params.id) //
-    .then((data) => NextResponse.json(data));
+  return Promise.all([userInfo, posts]).then(([userInfo, posts]) =>
+    NextResponse.json({ userInfo, posts })
+  );
 }
