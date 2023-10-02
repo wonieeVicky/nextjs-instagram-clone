@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import Avatar from '../ui/Avatar';
-import { User } from '@/model/user';
+import { AuthUser } from '@/model/user';
 
 const NAV_ITEMS = [
   { title: 'About', href: '/about' },
@@ -16,7 +16,7 @@ const NAV_ITEMS = [
 ];
 
 type Props = {
-  user: User;
+  user: AuthUser;
 };
 
 export default function Sidebar({ user: { name, username, image } }: Props) {

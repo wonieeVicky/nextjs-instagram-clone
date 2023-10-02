@@ -1,5 +1,5 @@
 ﻿'use client';
-import { DetailUser } from '@/model/user';
+import { HomeUser } from '@/model/user';
 import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
 import useSWR from 'swr';
@@ -8,7 +8,7 @@ import ScrollableBar from '../ui/ScrollableBar';
 
 // 사용자의 유저 정보로 팔로잉 리스트를 받아와야 함 => SSR로 구현 시 과부하. CSR로 구현
 export default function FollowingBar() {
-  const { data, isLoading: loading } = useSWR<DetailUser>('/api/me');
+  const { data, isLoading: loading } = useSWR<HomeUser>('/api/me');
   const users = data?.following;
 
   return (
