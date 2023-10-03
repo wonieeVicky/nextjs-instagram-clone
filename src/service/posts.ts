@@ -20,9 +20,7 @@ export async function getFollowingPostsOf(username: string) {
         || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
         | order(_createdAt desc){${simplePostProjection}}`
     )
-    .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
-    );
+    .then(mapPosts);
 
   return result;
 }
@@ -46,21 +44,28 @@ export async function getPost(id: string) {
   return result;
 }
 
-// get posts, saved posts, liked posts
 export async function getPostsOf(username: string) {
-  const parallelCall = [];
-  const posts = await client.fetch(
-    `*[_type == "post" && author->username == "${username}"] | order(_createdAt desc){${simplePostProjection}}`
-  );
-  const savedPosts = await client.fetch(
-    `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].bookmarks[]] | order(_createdAt desc){${simplePostProjection}}`
-  );
-  const likedPosts = await client.fetch(
-    `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].likes[]] | order(_createdAt desc){${simplePostProjection}}`
-  );
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"] | order(_createdAt desc) {${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
+export async function getLikedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[]->username] | order(_createdAt desc) {${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type == "user" && username == "${username}".bookmarks[]._ref]] | order(_createdAt desc) {${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
 
-  parallelCall.push(posts, savedPosts, likedPosts);
-  await Promise.all(parallelCall);
-
-  return { posts, savedPosts, likedPosts };
+function mapPosts(posts: SimplePost[]) {
+  return posts.map((post) => ({ ...post, image: urlFor(post.image) }));
 }
