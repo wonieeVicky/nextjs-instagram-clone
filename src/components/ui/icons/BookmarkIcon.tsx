@@ -1,5 +1,9 @@
 ﻿import { MdBookmarkBorder } from 'react-icons/md';
 
-export default function BookmarkIcon() {
-  return <MdBookmarkBorder className="w-6 h-6" />;
+type Props = {
+  className?: string;
+};
+
+export default function BookmarkIcon({ className }: Props) {
+  return <MdBookmarkBorder className={className || 'w-6 h-6'} />;
 }

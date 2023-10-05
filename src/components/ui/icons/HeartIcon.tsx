@@ -1,5 +1,9 @@
 ﻿import { HiOutlineHeart } from 'react-icons/hi';
 
-export default function HeartIcon() {
-  return <HiOutlineHeart className="w-6 h-6" />;
+type Props = {
+  className?: string;
+};
+
+export default function HeartIcon({ className }: Props) {
+  return <HiOutlineHeart className={className || 'w-6 h-6'} />;
 }

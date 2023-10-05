@@ -1,5 +1,9 @@
 ﻿import { HiHeart } from 'react-icons/hi';
 
-export default function HeartFillIcon() {
-  return <HiHeart className="w-6 h-6" />;
+type Props = {
+  className?: string;
+};
+
+export default function HeartFillIcon({ className }: Props) {
+  return <HiHeart className={className || 'w-6 h-6'} />;
 }
