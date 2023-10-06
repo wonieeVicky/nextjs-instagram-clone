@@ -46,7 +46,6 @@ export default function ModalContent({ onClose, post }: Props) {
                   username={username}
                   text={text}
                   createdAt={createdAt}
-                  mode={'detail'}
                 />
                 <CommentForm />
               </section>
