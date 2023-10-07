@@ -2,6 +2,7 @@
 import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
 import { parseDate } from '@/util/date';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   likes: string[];
@@ -11,10 +12,12 @@ type Props = {
 };
 
 export default function ActionBar({ likes, username, text, createdAt }: Props) {
+  const { data: session } = useSession();
+  const likedPost = likes && likes.includes(session?.user.username || '');
   return (
     <>
       <div className="flex justify-between my-2 px-4">
-        <HeartIcon />
+        <div>{likedPost ? <HeartFillIcon /> : <HeartIcon />}</div>
         <BookmarkIcon />
       </div>
       <div className="px-4 py-1">
