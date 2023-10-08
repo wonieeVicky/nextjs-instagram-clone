@@ -5,5 +5,5 @@ type Props = {
 };
 
 export default function HeartFillIcon({ className }: Props) {
-  return <HiHeart className={className || 'w-6 h-6'} />;
+  return <HiHeart className={className || 'w-6 h-6 fill-red-500'} />;
 }
