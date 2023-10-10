@@ -18,7 +18,7 @@ type Props = {
 };
 
 export default function PostCard({ post, priority = false }: Props) {
-  const { userImage, username, image, likes, text, createdAt } = post;
+  const { userImage, username, image, likes, text, createdAt, id } = post;
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -33,12 +33,7 @@ export default function PostCard({ post, priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar
-        likes={likes}
-        username={username}
-        text={text}
-        createdAt={createdAt}
-      />
+      <ActionBar post={post} />
       <CommentForm />
       {openModal && (
         <ModalPortal>
