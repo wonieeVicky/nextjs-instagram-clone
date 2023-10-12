@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ToggleButton from './ToggleButton';
 import BookmarkFillIcon from './icons/BookmarkFillIcon';
 import { SimplePost } from '@/model/post';
+import usePosts from '@/hooks/posts';
 
 export default function ActionBar({ post }: { post: SimplePost }) {
   const { likes, username, text, createdAt, id } = post;
@@ -16,13 +17,12 @@ export default function ActionBar({ post }: { post: SimplePost }) {
   const liked = user ? likes.includes(user.username) : false;
   const [bookmarked, setBookmarked] = useState(false);
 
-  const { mutate } = useSWRConfig();
-
-  const handleLike = (like: boolean) =>
-    fetch('api/likes', {
-      method: 'PUT',
-      body: JSON.stringify({ id, like })
-    }).then(() => mutate('/api/posts'));
+  const { setLike } = usePosts();
+  const handleLike = (like: boolean) => {
+    if (user) {
+      setLike(post, user.username, like);
+    }
+  };
 
   return (
     <>

@@ -1,15 +1,13 @@
 ﻿'use client';
 
-import { SimplePost } from '@/model/post';
-import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 import PostCard from './PostCard';
 import GridSpinner from '../ui/GridSpinner';
+import usePosts from '@/hooks/posts';
 
 export default function PostList() {
   const { data: session } = useSession();
-  const { data: posts, isLoading: loading } =
-    useSWR<SimplePost[]>('/api/posts');
+  const { posts, isLoading: loading } = usePosts();
   const user = session?.user;
 
   return (
