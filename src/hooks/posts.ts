@@ -1,5 +1,5 @@
 ﻿import { SimplePost } from '@/model/post';
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 
 async function updateLike(id: string, like: boolean) {
   return fetch('api/likes', {
@@ -31,7 +31,7 @@ export default function usePosts() {
     return mutate(updateLike(post.id, like), {
       optimisticData: newPosts,
       populateCache: false,
-      revalidate: true,
+      revalidate: false, // 재갱신 x, newPosts 데이터 신뢰, 네트워크 통신 절약
       rollbackOnError: true
     });
   };

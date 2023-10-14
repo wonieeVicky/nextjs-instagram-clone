@@ -18,7 +18,7 @@ export async function addUser({ id, username, name, email, image }: OAuthUser) {
     name,
     image,
     following: [],
-    follwers: [],
+    followers: [],
     bookmarks: []
   });
 
@@ -30,12 +30,8 @@ export async function getUserByUsername(username: string) {
     `*[_type == "user" && username == "${username}"][0]{
       ...,
       "id": _id,
-      following[]->{
-        username, image
-      },
-      followers[]->{
-        username, image
-      },
+      following[]->{username, image},
+      followers[]->{username, image},
       "bookmarks": bookmarks[]->_id,
     }`
   );

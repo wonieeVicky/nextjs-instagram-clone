@@ -3,7 +3,6 @@ import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
 import { parseDate } from '@/util/date';
 import { useSession } from 'next-auth/react';
-import { useSWRConfig } from 'swr';
 import { useState } from 'react';
 import ToggleButton from './ToggleButton';
 import BookmarkFillIcon from './icons/BookmarkFillIcon';
