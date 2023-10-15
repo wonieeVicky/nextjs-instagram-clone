@@ -8,18 +8,26 @@ import ToggleButton from './ToggleButton';
 import BookmarkFillIcon from './icons/BookmarkFillIcon';
 import { SimplePost } from '@/model/post';
 import usePosts from '@/hooks/posts';
+import useMe from '@/hooks/user';
 
 export default function ActionBar({ post }: { post: SimplePost }) {
   const { likes, username, text, createdAt, id } = post;
   const { data: session } = useSession();
+  const { setBookmark, data } = useMe();
+  const bookmarks = data?.bookmarks;
   const user = session?.user;
   const liked = user ? likes.includes(user.username) : false;
-  const [bookmarked, setBookmarked] = useState(false);
+  const bookmarked = bookmarks ? bookmarks.includes(id) : false;
 
   const { setLike } = usePosts();
   const handleLike = (like: boolean) => {
     if (user) {
       setLike(post, user.username, like);
+    }
+  };
+  const handleBookmark = (bookmark: boolean) => {
+    if (user && id && data) {
+      setBookmark(data, id, bookmark);
     }
   };
 
@@ -34,7 +42,7 @@ export default function ActionBar({ post }: { post: SimplePost }) {
         />
         <ToggleButton
           toggled={bookmarked}
-          onToggle={setBookmarked}
+          onToggle={handleBookmark}
           onIcon={<BookmarkFillIcon />}
           offIcon={<BookmarkIcon />}
         />
