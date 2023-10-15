@@ -1,5 +1,4 @@
-﻿import { SimplePost } from '@/model/post';
-import { HomeUser } from '@/model/user';
+﻿import { HomeUser } from '@/model/user';
 import useSWR from 'swr';
 
 async function updateBookmark(id: string, bookmark: boolean) {

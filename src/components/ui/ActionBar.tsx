@@ -3,7 +3,6 @@ import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
 import { parseDate } from '@/util/date';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
 import ToggleButton from './ToggleButton';
 import BookmarkFillIcon from './icons/BookmarkFillIcon';
 import { SimplePost } from '@/model/post';
@@ -13,13 +12,15 @@ import useMe from '@/hooks/user';
 export default function ActionBar({ post }: { post: SimplePost }) {
   const { likes, username, text, createdAt, id } = post;
   const { data: session } = useSession();
+
+  const { setLike } = usePosts();
   const { setBookmark, data } = useMe();
+
   const bookmarks = data?.bookmarks;
   const user = session?.user;
   const liked = user ? likes.includes(user.username) : false;
   const bookmarked = bookmarks ? bookmarks.includes(id) : false;
 
-  const { setLike } = usePosts();
   const handleLike = (like: boolean) => {
     if (user) {
       setLike(post, user.username, like);
