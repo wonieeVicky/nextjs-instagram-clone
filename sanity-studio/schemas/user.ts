@@ -31,7 +31,7 @@
       validation: (Rule: any) => Rule.unique(),
     },
     {
-      title: 'Follwers',
+      title: 'Followers',
       name: 'followers',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'user'}]}],
