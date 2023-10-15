@@ -20,13 +20,13 @@
 - [x] Main - followings
 - [x] Main - feeds(liked, saved, following)
 - [ ] Main - Infinite Scroll..
-- [ ] Main - profile
+- [x] Main - profile
 - [ ] Detail - feed(like, save)
 - [ ] Detail - comment
-- [ ] My - follower, following, posts
-- [ ] My - feeds(posts)
-- [ ] My - feeds(saved)
-- [ ] My - feeds(liked)
+- [x] My - follower, following, posts
+- [x] My - feeds(posts)
+- [x] My - feeds(saved)
+- [x] My - feeds(liked)
 
 ## Add a pinch of ideas 🤔
 
