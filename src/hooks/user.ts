@@ -21,7 +21,7 @@ export default function useMe() {
         : user.bookmarks.filter((u) => u !== postId)
     };
 
-    return mutate(updateBookmark(user.id, bookmark), {
+    return mutate(updateBookmark(postId, bookmark), {
       optimisticData: newUserData,
       populateCache: false,
       revalidate: false, // 재갱신 x, newPosts 데이터 신뢰, 네트워크 통신 절약
