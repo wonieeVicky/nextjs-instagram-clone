@@ -1,7 +1,7 @@
 ﻿import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
-import { savePost, unsavePost } from '@/service/user';
+import { addBookmark, removeBookmark } from '@/service/user';
 
 export async function PUT(req: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -17,8 +17,8 @@ export async function PUT(req: NextRequest) {
     return new Response('Bad Request', { status: 400 });
   }
 
-  const request = bookmark ? savePost : unsavePost;
-  return request(id, user.id)
+  const request = bookmark ? addBookmark : removeBookmark;
+  return request(user.id, id)
     .then((res) => NextResponse.json(res))
     .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
 }
