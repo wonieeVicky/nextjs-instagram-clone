@@ -29,7 +29,7 @@ export default function PostDetail({ post }: Props) {
       </div>
       <div className="w-full basis-2/5 flex flex-col">
         <PostUserAvatar image={userImage} username={username} />
-        <ul className="border-t border-gray-2-- h-full overflow-y-auto p-4 mb-1">
+        <ul className="border-t border-gray-200 h-full overflow-y-auto p-4 mb-1">
           {comments &&
             comments.map(
               ({ image, username: commentUsername, comment }, idx) => (
