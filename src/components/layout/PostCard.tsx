@@ -33,7 +33,7 @@ export default function PostCard({ post, priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar post={post} />
+      <ActionBar post={post} openModal={() => setOpenModal(true)} />
       <CommentForm />
       {openModal && (
         <ModalPortal>

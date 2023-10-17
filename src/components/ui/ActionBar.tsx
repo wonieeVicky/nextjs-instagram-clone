@@ -2,15 +2,20 @@
 import HeartFillIcon from '../ui/icons/HeartFillIcon';
 import BookmarkIcon from '../ui/icons/BookmarkIcon';
 import { parseDate } from '@/util/date';
-import { useSession } from 'next-auth/react';
 import ToggleButton from './ToggleButton';
 import BookmarkFillIcon from './icons/BookmarkFillIcon';
 import { SimplePost } from '@/model/post';
 import usePosts from '@/hooks/posts';
 import useMe from '@/hooks/me';
 
-export default function ActionBar({ post }: { post: SimplePost }) {
-  const { likes, username, text, createdAt, id } = post;
+export default function ActionBar({
+  post,
+  openModal
+}: {
+  post: SimplePost;
+  openModal?: () => React.SetStateAction<boolean>;
+}) {
+  const { likes, username, text, createdAt, id, comments } = post;
   const { setBookmark, user } = useMe();
   const { setLike } = usePosts();
 
@@ -44,12 +49,21 @@ export default function ActionBar({ post }: { post: SimplePost }) {
         <p className="text-sm font-bold mb-2">{`${likes?.length ?? 0} ${
           likes?.length > 1 ? 'likes' : 'like'
         }`}</p>
-        {text && (
+        {text && openModal && (
           <p>
             <span className="font-bold mr-1">{username}</span>
             {text}
           </p>
         )}
+        {comments > 1 && openModal && (
+          <p
+            className="text-sm font-bold text-sky-500 mt-2 mb-3 cursor-pointer"
+            onClick={openModal}
+          >
+            View all {comments} comments
+          </p>
+        )}
+
         <p className="text-xs text-neutral-500 uppercase my-2">
           {parseDate(createdAt)}
         </p>
