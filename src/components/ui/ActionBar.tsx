@@ -10,12 +10,12 @@ import useMe from '@/hooks/me';
 
 export default function ActionBar({
   post,
-  openModal
+  children
 }: {
   post: SimplePost;
-  openModal?: () => React.SetStateAction<boolean>;
+  children?: React.ReactNode;
 }) {
-  const { likes, username, text, createdAt, id, comments } = post;
+  const { likes, createdAt, id } = post;
   const { setBookmark, user } = useMe();
   const { setLike } = usePosts();
 
@@ -49,21 +49,7 @@ export default function ActionBar({
         <p className="text-sm font-bold mb-2">{`${likes?.length ?? 0} ${
           likes?.length > 1 ? 'likes' : 'like'
         }`}</p>
-        {text && openModal && (
-          <p>
-            <span className="font-bold mr-1">{username}</span>
-            {text}
-          </p>
-        )}
-        {comments > 1 && openModal && (
-          <p
-            className="text-sm font-bold text-sky-500 mt-2 mb-3 cursor-pointer"
-            onClick={openModal}
-          >
-            View all {comments} comments
-          </p>
-        )}
-
+        {children}
         <p className="text-xs text-neutral-500 uppercase my-2">
           {parseDate(createdAt)}
         </p>

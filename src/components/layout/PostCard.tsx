@@ -2,9 +2,7 @@
 
 import { SimplePost } from '@/model/post';
 
-import Avatar from '../ui/Avatar';
 import Image from 'next/image';
-import CommentForm from '../ui/CommentForm';
 import ActionBar from '../ui/ActionBar';
 import { useState } from 'react';
 import ModalPortal from '../ui/ModalPortal';
@@ -18,7 +16,7 @@ type Props = {
 };
 
 export default function PostCard({ post, priority = false }: Props) {
-  const { userImage, username, image, likes, text, createdAt, id } = post;
+  const { userImage, username, image, comments, text } = post;
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -33,8 +31,19 @@ export default function PostCard({ post, priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar post={post} openModal={() => setOpenModal(true)} />
-      <CommentForm />
+      <ActionBar post={post}>
+        <p>
+          <span className="font-bold mr-1">{username}</span>
+          {text}
+        </p>
+        {comments > 1 && (
+          <button
+            className="font-bold my-2 text-sky-500"
+            onClick={() => setOpenModal(true)}
+          >{`View all ${comments} comments`}</button>
+        )}
+      </ActionBar>
+      {/* <CommentForm /> */}
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
