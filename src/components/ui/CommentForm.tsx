@@ -1,15 +1,40 @@
-﻿import SmileIcon from './icons/SmileIcon';
+﻿import { FormEvent, useState } from 'react';
+import SmileIcon from './icons/SmileIcon';
 
-export default function CommentForm() {
+type Props = {
+  onPostComment: (comment: string) => void;
+};
+
+export default function CommentForm({ onPostComment }: Props) {
+  const [comment, setComment] = useState('');
+  const buttonDisabled = comment.length === 0;
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onPostComment(comment);
+    setComment('');
+  };
+
   return (
-    <form className="flex items-center px-3 border-t border-neutral-300">
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center px-3 border-t border-neutral-300"
+    >
       <SmileIcon />
       <input
         type="text"
         placeholder="Add a comment..."
-        className="w-full ml-2 border-none outline-none p-3"
+        className="w-full ml-2 border-none outline-none p-3 focus:ring-0"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
       />
-      <button className="font-bold text-sky-500 ml-2">Post</button>
+      <button
+        className={`font-bold ml-2 ${
+          buttonDisabled ? 'text-sky-300' : 'text-sky-500'
+        }`}
+        disabled={buttonDisabled}
+      >
+        Post
+      </button>
     </form>
   );
 }
