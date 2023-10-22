@@ -1,5 +1,5 @@
 ﻿import { Comment, FullPost, SimplePost } from '@/model/post';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 
 async function addComment(id: string, comment: string) {
   return fetch('api/comments', {
@@ -16,7 +16,7 @@ export default function useFullPost(postId: string) {
     error,
     mutate
   } = useSWR<FullPost>(`/api/posts/${postId}`);
-
+  const { mutate: globalMutate } = useSWRConfig();
   const postComment = (comment: Comment) => {
     if (!post) return;
 
@@ -32,7 +32,7 @@ export default function useFullPost(postId: string) {
       populateCache: false,
       revalidate: false, // 재갱신 x, newPosts 데이터 신뢰, 네트워크 통신 절약
       rollbackOnError: true
-    });
+    }).then(() => globalMutate('/api/posts'));
   };
 
   return { post, isLoading, error, postComment };
