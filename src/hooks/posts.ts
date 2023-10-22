@@ -1,4 +1,4 @@
-﻿import { SimplePost } from '@/model/post';
+﻿import { Comment, SimplePost } from '@/model/post';
 import useSWR from 'swr';
 
 async function updateLike(id: string, like: boolean) {
@@ -42,7 +42,7 @@ export default function usePosts() {
     });
   };
 
-  const postComment = (post: SimplePost, comment: string) => {
+  const postComment = (post: SimplePost, comment: Comment) => {
     // optimistic update를 위한 newPost 생성
     const newPost = {
       ...post,
@@ -51,7 +51,7 @@ export default function usePosts() {
     const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
 
     // 내부 mutate를 사용해서 optimistic update 구현
-    return mutate(addComment(post.id, comment), {
+    return mutate(addComment(post.id, comment.comment), {
       optimisticData: newPosts,
       populateCache: false,
       revalidate: false, // 재갱신 x, newPosts 데이터 신뢰, 네트워크 통신 절약
