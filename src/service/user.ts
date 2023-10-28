@@ -96,19 +96,39 @@ export async function removeBookmark(userId: string, postId: string) {
     .commit({ autoGenerateArrayKeys: true });
 }
 
-// follow user
-export async function followUser(userId: string, targetId: string) {
+// 한번에 다수의 사용자 데이터를 변경해야한다.
+// Multiple mutations in a tansaction
+export async function follow(myId: string, targetId: string) {
   return client
-    .patch(userId)
-    .setIfMissing({ following: [] })
-    .append('following', [{ _ref: targetId, _type: 'reference' }])
-    .commit({ autoGenerateArrayKeys: true });
+    .transaction()
+    .patch(myId, (user) =>
+      user
+        .setIfMissing({ following: [] })
+        .append('following', [{ _ref: targetId, _type: 'reference' }])
+    )
+    .patch(targetId, (user) =>
+      user
+        .setIfMissing({ followers: [] })
+        .append('followers', [{ _ref: myId, _type: 'reference' }])
+    )
+    .commit({
+      autoGenerateArrayKeys: true
+    });
 }
 
 // unfollow user
-export async function unfollowUser(userId: string, targetId: string) {
+export async function unfollow(myId: string, targetId: string) {
   return client
-    .patch(userId)
-    .unset([`following[_ref == "${targetId}"]`])
-    .commit({ autoGenerateArrayKeys: true });
+    .transaction()
+    .patch(myId, (user) =>
+      user
+        .setIfMissing({ following: [] })
+        .unset([`following[_ref=="${targetId}"]`])
+    )
+    .patch(targetId, (user) =>
+      user.setIfMissing({ followers: [] }).unset([`followers[_ref=="${myId}"]`])
+    )
+    .commit({
+      autoGenerateArrayKeys: true
+    });
 }
