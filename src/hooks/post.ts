@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 
 async function addComment(id: string, comment: string) {
-  return fetch('api/comments', {
+  return fetch('/api/comments', {
     method: 'POST',
     body: JSON.stringify({ id, comment })
   }).then((res) => res.json());
