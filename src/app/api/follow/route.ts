@@ -1,9 +1,8 @@
-﻿import { getServerSession } from 'next-auth';
+﻿import { follow, unfollow } from '@/service/user';
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { follow, unfollow } from '@/service/user';
+import { authOptions } from '../auth/[...nextauth]/route';
 
-// PUT Follow
 export async function PUT(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
@@ -14,13 +13,13 @@ export async function PUT(req: NextRequest) {
 
   const { id: targetId, follow: isFollow } = await req.json();
 
-  if (!targetId || follow === undefined) {
+  if (!targetId || isFollow === undefined) {
     return new Response('Bad Request', { status: 400 });
   }
 
   const request = isFollow ? follow : unfollow;
 
-  return request(user.id, targetId)
+  return request(user.id, targetId) //
     .then((res) => NextResponse.json(res))
     .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
 }
