@@ -6,9 +6,7 @@ import GridSpinner from '../ui/GridSpinner';
 import usePosts from '@/hooks/posts';
 
 export default function PostList() {
-  const { data: session } = useSession();
   const { posts, isLoading: loading } = usePosts();
-  const user = session?.user;
 
   return (
     <section>
@@ -17,7 +15,7 @@ export default function PostList() {
           <GridSpinner />
         </div>
       )}
-      {posts && user && (
+      {posts && (
         <ul>
           {posts.map((post, index) => (
             <li key={post.id} className="mb-6">
