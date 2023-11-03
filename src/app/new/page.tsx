@@ -3,8 +3,14 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import Avatar from '@/components/ui/Avatar';
 import { redirect } from 'next/navigation';
 import CreatePost from '@/components/ui/CreatePost';
+import { Metadata } from 'next';
 
-export default async function SearchPage() {
+export const metadata: Metadata = {
+  title: 'New Post',
+  description: 'Create a new post'
+};
+
+export default async function NewPostPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
