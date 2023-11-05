@@ -71,6 +71,16 @@ export default function NewPost({ user: { username, image } }: Props) {
 
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6">
+      {loading && (
+        <div className="absolute inset-0 z-20 text-center pt-[30%] bg-sky-50">
+          <GridSpinner />
+        </div>
+      )}
+      {error && (
+        <p className="w-full bg-red-100 text-red-600 text-center p-4 mb-4 font-bold">
+          {error}
+        </p>
+      )}
       <PostUserAvatar username={username} image={image ?? ''} />
       <form className="w-full flex flex-col mt-2" onSubmit={handleSubmit}>
         <input
