@@ -4,8 +4,10 @@ import { AuthUser } from '@/model/user';
 import PostUserAvatar from './PostUserAvatar';
 import UploadIcon from './icons/UploadIcon';
 import Button from './Button';
-import { ChangeEvent, DragEvent, useState } from 'react';
+import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import GridSpinner from './GridSpinner';
 
 type Props = {
   user: AuthUser;
@@ -14,12 +16,16 @@ type Props = {
 export default function NewPost({ user: { username, image } }: Props) {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>();
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target?.files;
     if (files && files[0]) {
       setFile(files[0]);
-      console.log(files[0]);
     }
   };
   const handleDrag = (e: DragEvent) => {
@@ -42,11 +48,31 @@ export default function NewPost({ user: { username, image } }: Props) {
       console.log(files[0]);
     }
   };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!file) return;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('text', textRef.current?.value ?? '');
+
+    fetch('/api/posts/', { method: 'POST', body: formData })
+      .then((res) => {
+        if (!res.ok) {
+          setError(`${res.status} ${res.statusText}`);
+          return;
+        }
+        router.push('/');
+      })
+      .catch((err) => setError(err.toString()))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6">
       <PostUserAvatar username={username} image={image ?? ''} />
-      <form className="w-full flex flex-col mt-2">
+      <form className="w-full flex flex-col mt-2" onSubmit={handleSubmit}>
         <input
           className="hidden"
           type="file"
@@ -93,6 +119,7 @@ export default function NewPost({ user: { username, image } }: Props) {
           required
           placeholder="Write a caption..."
           rows={10}
+          ref={textRef}
         ></textarea>
         <Button text="Publish" onClick={() => {}} />
       </form>
