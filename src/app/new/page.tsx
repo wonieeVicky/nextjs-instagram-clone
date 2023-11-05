@@ -1,8 +1,6 @@
 ﻿import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
-import Avatar from '@/components/ui/Avatar';
 import { redirect } from 'next/navigation';
-import CreatePost from '@/components/ui/CreatePost';
 import { Metadata } from 'next';
 import NewPost from '@/components/ui/NewPost';
 
@@ -17,8 +15,6 @@ export default async function NewPostPage() {
   if (!session?.user) {
     redirect('/auth/signin');
   }
-
-  const { image, username } = session?.user;
 
   return <NewPost user={session.user} />;
 }
