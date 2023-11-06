@@ -6,8 +6,8 @@ import UploadIcon from './icons/UploadIcon';
 import Button from './Button';
 import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import GridSpinner from './GridSpinner';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   user: AuthUser;
