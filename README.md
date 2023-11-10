@@ -19,10 +19,10 @@
 - [x] Login/Logout(sign in with google)
 - [x] Main - followings
 - [x] Main - feeds(liked, saved, following)
-- [ ] Main - Infinite Scroll..
+- [x] Main - Infinite Scroll..
 - [x] Main - profile
-- [ ] Detail - feed(like, save)
-- [ ] Detail - comment
+- [x] Detail - feed(like, save)
+- [x] Detail - comment
 - [x] My - follower, following, posts
 - [x] My - feeds(posts)
 - [x] My - feeds(saved)
