@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: 'Signup or Login to Vickygram'
 };
 
-export default async function SignInPage({
+export default async function SignPage({
   searchParams: { callbackUrl }
 }: Props) {
   const session = await getServerSession(authOptions);
