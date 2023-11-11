@@ -2,7 +2,7 @@
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import NewPost from '@/components/ui/NewPost';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
 export const metadata: Metadata = {
   title: 'New Post',
