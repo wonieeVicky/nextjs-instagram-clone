@@ -1,8 +1,8 @@
 import FollowingBar from '@/components/layout/FollowingBar';
 import PostList from '@/components/layout/PostList';
 import Sidebar from '@/components/layout/Sidebar';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 
 // SSR : 사용자의 요청이 올 때마다 서버에서 렌더링. (유저정보로 유의미한 정보를 보여줘야 하므로)
