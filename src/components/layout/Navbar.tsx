@@ -17,23 +17,27 @@ type menuType = {
   href: string;
   icon: JSX.Element;
   clickedIcon?: JSX.Element;
+  title: string;
 };
 
 const menu: menuType[] = [
   {
     href: '/',
     icon: <HomeIcon />,
-    clickedIcon: <HomeFillIcon />
+    clickedIcon: <HomeFillIcon />,
+    title: 'Home'
   },
   {
     href: '/search',
     icon: <SearchIcon />,
-    clickedIcon: <SearchFillIcon />
+    clickedIcon: <SearchFillIcon />,
+    title: 'Search users'
   },
   {
     href: '/new',
     icon: <NewIcon />,
-    clickedIcon: <NewFillIcon />
+    clickedIcon: <NewFillIcon />,
+    title: 'New post'
   }
 ];
 
@@ -45,14 +49,14 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between items-center px-6">
-      <Link href="/">
+      <Link href="/" aria-label="Home">
         <h1 className="text-3xl font-bold">Vickygram</h1>
       </Link>
       <nav>
         <ul className="flex gap-4 items-center p-4">
           {menu.map((item) => (
             <li key={item.href}>
-              <Link href={item.href}>
+              <Link href={item.href} aria-label={item.title}>
                 {pathname === item.href ? item.clickedIcon : item.icon}
               </Link>
             </li>
