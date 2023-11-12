@@ -49,7 +49,7 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between items-center px-6">
-      <Link href="/" aria-label="Home">
+      <Link href="/" aria-label="Vickygram">
         <h1 className="text-3xl font-bold">Vickygram</h1>
       </Link>
       <nav>
