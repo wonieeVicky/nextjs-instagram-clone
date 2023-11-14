@@ -1,4 +1,3 @@
-import post from '../../sanity-studio/schemas/post';
 import { SimplePost } from './../model/post';
 import { client, urlFor, assetsURL } from './sanity';
 
@@ -77,7 +76,7 @@ function mapPosts(posts: SimplePost[]) {
   return posts.map((post: SimplePost) => ({
     ...post,
     likes: post.likes ?? [],
-    image: urlFor(post.image),
+    image: urlFor(post.image)
   }));
 }
 
@@ -88,8 +87,8 @@ export async function likePost(postId: string, userId: string) {
     .append('likes', [
       {
         _ref: userId,
-        _type: 'reference',
-      },
+        _type: 'reference'
+      }
     ])
     .commit({ autoGenerateArrayKeys: true });
 }
@@ -112,8 +111,8 @@ export async function addComment(
     .append('comments', [
       {
         comment,
-        author: { _ref: userId, _type: 'reference' },
-      },
+        author: { _ref: userId, _type: 'reference' }
+      }
     ])
     .commit({ autoGenerateArrayKeys: true });
 }
@@ -125,9 +124,9 @@ export async function createPost(userId: string, text: string, file: Blob) {
     method: 'POST',
     headers: {
       'content-type': file.type,
-      authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`,
+      authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`
     },
-    body: file,
+    body: file
   })
     .then((res) => res.json())
     .then((result) => {
@@ -139,10 +138,10 @@ export async function createPost(userId: string, text: string, file: Blob) {
           comments: [
             {
               comment: text,
-              author: { _ref: userId, _type: 'reference' },
-            },
+              author: { _ref: userId, _type: 'reference' }
+            }
           ],
-          likes: [],
+          likes: []
         },
         { autoGenerateArrayKeys: true }
       );
