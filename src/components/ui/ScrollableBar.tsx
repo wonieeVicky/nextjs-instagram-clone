@@ -5,9 +5,13 @@ const responsive = {
     breakpoint: { max: 4000, min: 576 },
     items: 6
   },
-  mobile: {
+  tablet: {
     breakpoint: { max: 576, min: 0 },
     items: 5
+  },
+  mobile: {
+    breakpoint: { max: 460, min: 0 },
+    items: 4
   }
 };
 
