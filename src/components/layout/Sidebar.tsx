@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Link from 'next/link';
 import Avatar from '../ui/Avatar';
 import { AuthUser } from '@/model/user';
 
@@ -23,10 +24,16 @@ export default function Sidebar({ user: { name, username, image } }: Props) {
   return (
     <>
       <div className="flex items-center">
-        {image && <Avatar image={image} />}
+        {image && (
+          <Link href={`/user/${username}`}>
+            <Avatar image={image} />
+          </Link>
+        )}
         <div className="ml-4">
-          <p className="font-bold">{username}</p>
-          <p className="text-lg text-neutral-500 leading-4">{name}</p>
+          <Link href={`/user/${username}`}>
+            <p className="font-bold">{username}</p>
+            <p className="text-lg text-neutral-500 leading-4">{name}</p>
+          </Link>
         </div>
       </div>
       <p className="text-sm text-neutral-500 mt-8">
