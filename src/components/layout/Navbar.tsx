@@ -48,15 +48,21 @@ export default function Navbar() {
   const user = session?.user;
 
   return (
-    <div className="flex justify-between items-center px-6">
+    <div className="flex justify-between items-center px-3 md:px-4 lg:px-6">
       <Link href="/" aria-label="Vickygram">
-        <h1 className="text-3xl font-bold">Vickygram</h1>
+        <h1 className="font-bold text-xl md:text-2xl lg:text-3xl ">
+          Vickygram
+        </h1>
       </Link>
       <nav>
-        <ul className="flex gap-4 items-center p-4">
+        <ul className="flex gap-4 items-center p-2 md:p-3 lg:p-4">
           {menu.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} aria-label={item.title}>
+              <Link
+                href={item.href}
+                aria-label={item.title}
+                className="hidden sm:block"
+              >
                 {pathname === item.href ? item.clickedIcon : item.icon}
               </Link>
             </li>
