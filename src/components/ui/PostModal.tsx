@@ -7,7 +7,7 @@ type Props = {
 export default function PostModal({ children, onClose }: Props) {
   return (
     <section
-      className="fixed top-0 left-0 flex flex-col justify-center items-center w-full h-full z-50 bg-neutral-900/70"
+      className="fixed top-0 left-0 flex flex-col justify-center items-center w-full h-full z-50 bg-neutral-900/70 min-w-[450px]"
       onClick={(event) => {
         if (event.target === event.currentTarget) {
           // 외부 섹션 태그를 다시 클릭했을 경우 모달을 닫는다.
@@ -18,7 +18,7 @@ export default function PostModal({ children, onClose }: Props) {
       <button onClick={onClose} className="fixed top-0 right-0 p-8 text-white">
         <CloseIcon />
       </button>
-      <div className="bg-white w-4/5 h-3/5 max-w-7xl">{children}</div>
+      <div className="bg-white w-[90%] h-3/5 max-w-7xl">{children}</div>
     </section>
   );
 }
