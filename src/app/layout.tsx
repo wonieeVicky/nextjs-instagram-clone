@@ -1,11 +1,16 @@
 import Navbar from '@/components/layout/Navbar';
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Open_Sans } from 'next/font/google';
 import AuthContext from '@/context/AuthContext';
 import SWRConfigContext from '@/context/SWRConfigContext';
 
 const sans = Open_Sans({ subsets: ['latin'] });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
+};
 
 export const metadata: Metadata = {
   title: {
