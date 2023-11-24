@@ -23,7 +23,7 @@ type Props = {
 export default function Sidebar({ user: { name, username, image } }: Props) {
   return (
     <>
-      <div className="flex items-center">
+      <div className="items-center hidden md:flex">
         {image && (
           <Link href={`/user/${username}`}>
             <Avatar image={image} />
