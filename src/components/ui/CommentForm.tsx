@@ -23,7 +23,7 @@ export default function CommentForm({ onPostComment }: Props) {
       <input
         type="text"
         placeholder="Add a comment..."
-        className="w-full ml-2 border-none outline-none p-3 focus:ring-0"
+        className="w-full ml-2 border-none outline-none p-3 focus:ring-0 bg-transparent"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
